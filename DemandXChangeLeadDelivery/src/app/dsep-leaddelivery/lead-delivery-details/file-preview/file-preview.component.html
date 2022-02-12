@@ -1,0 +1,25 @@
+<div class="file-preview-container">
+  <div class="excel-icon-file-preview">
+    <div class="icon-circle">
+      <dsep-button type="iconbutton" location="right" icon="m-excel2019" cls="icon-only-stroke" (btnClick)="onRefreshFile()">
+        <dsep-icon icon="m-excel2019" [isInline]="true"></dsep-icon>
+        <dsep-tooltip text="Check lead file status "></dsep-tooltip>
+      </dsep-button>
+    </div>
+      <!--<div class="icon-circle"><dsep-icon icon="m-excel2019" [isInline]="true"></dsep-icon></div> -->
+  </div>
+  <div class="action-section-area">
+    <div class="message-section">
+      <div class="text-section">
+         <p class="file-text">{{message}}</p>
+         <p class="file-subtext">{{subMessage}}</p>
+      </div>
+    </div>
+    <div class="file-preview-elements">
+      <div *ngIf="!showRegenerateLink"><a [ngClass]="{'link-item-trigger': true, 'disable-gen': disableGen}"  (click)="onGenerate($event)">Generate</a></div>
+      <div *ngIf="showRegenerateLink"><a [ngClass]="{'link-item-trigger': true, 'disable-gen': disableRegen}"  (click)="onRegenerate($event)">Regenerate</a></div>
+      <div><a [ngClass]="{'link-item-trigger': true, 'disabled-download': disableDownload}" (click)="onDownload($event)">Download</a></div>
+      <div><a [ngClass]="{'link-item-trigger': true, 'disabled-replace': disableReplace}" (click)="onReplace($event)">Replace</a></div>
+    </div>
+  </div>
+</div>

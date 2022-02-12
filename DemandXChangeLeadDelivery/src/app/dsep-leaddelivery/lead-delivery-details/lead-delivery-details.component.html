@@ -1,0 +1,215 @@
+<dsep-breadcrumb [path]="campaignDetailsTitle" [params]="leadDeliveryRouteParams"></dsep-breadcrumb>
+<dsep-panel>
+  <dsep-content [tplContent]="tmpContent">
+    <ng-template #tmpContent>
+      <dsep-toolbar id="leads-tbar-title"  [titleText]="campaignDetailsTitle">
+        <dsep-tooltip id="leads-tbar-title" text="Admin CID-{{this.campaignId}}"></dsep-tooltip> 
+        <dsep-button  type="iconbutton" location="left" (btnClick)="openToCampaignLaunchPage()">
+          <dsep-icon  icon="open_in_new"></dsep-icon>
+          <dsep-tooltip id="leads-tbar-title" text = "Open setup details in Campaign Launch"></dsep-tooltip>
+       </dsep-button>
+       <dsep-field type="display" location="right"  [dsepFormGroup]="formddpGroupGeneric" [visible]="true" [text]="leadsRefreshStatusTimeStamp"></dsep-field>
+       <dsep-field type="link" linkType="standardlink"  [dsepFormGroup]="formddpGroupGeneric" location="right" (handleClick)="processWidgetAndProgress()" text="Refresh"></dsep-field>
+      </dsep-toolbar>
+      <dsep-panel id="lead-delivery-details-top-panel" [isCollapsiblePanel]="isCollapsiblePanel"
+                  [isCollapsed]="isCollapsed">
+        <dsep-content [tplContent]="HideableContent">
+          <ng-template #HideableContent>
+            <div class="campaign-progress">
+
+              <!-- Detail cards -->
+              <div class="info-Widgets">
+                <dsep-widgets [widgetsList]="gridWidgetDetails" layoutType="horizontal" widgetType="info"></dsep-widgets>
+              </div>
+
+              <!-- Campaign progress details -->
+              <div class="section-header-title cards-row-2">
+
+                <!-- Campaign progress -->
+                <dsep-card
+                        title="Campaign Progress"
+                        [cardData]="progressLeadData.overall"
+                        [cardContent]="cardtitleprogress">
+                        <ng-template #cardtitleprogress let-cardProgress="data">
+                          <dsep-divider></dsep-divider>
+                          <div class="campaign-progress-details">
+                            <dsep-card
+                                [title]="cardProgress.name"
+                                [subTitle]="cardProgress.numerator + '/' + cardProgress.denominator"
+                                [cardData]="cardProgress"
+                                [cardContent]="cardprogressdata">
+                                <ng-template #cardprogressdata let-progressRate="data">
+                                  <div class="spinner">
+                                    <dsep-form #progressForms>
+                                      <dsep-field label="Progress" type="progress" name="progress" progressType="circular" [progress]="progressRate.percentage" size="70" [color]="progressRate.color"></dsep-field>
+                                    </dsep-form>
+                                  </div>
+                                </ng-template>
+                            </dsep-card>
+                          </div>
+                        </ng-template>
+                </dsep-card>
+
+                <!-- Channels -->
+                <div class="channels-card">
+                    <dsep-card
+                        title="Channels"
+                        [cardData]="progressLeadData.channels"
+                        [cardContent]="channelCardsProgress">
+                        <ng-template #channelCardsProgress let-cardChannel="data">
+                          <dsep-divider></dsep-divider>
+                          <div class="channels">
+                              <ng-container *ngFor="let channel of cardChannel">
+                                 <div class="channel-fields">
+                                   <div class="channel-header-title">
+                                        <div class="main-tile-text">
+                                            <span>{{channel.name}}</span>
+                                        </div>
+                                        <div class="channel-title-spacer"></div>
+                                        <div *ngIf="channel.linkName && channel.linkName !== ''" class="channel-link-name">
+                                          <dsep-popover class="popover"  [disabled]="channel.disabled" type="link" [btnText]="channel.linkName" position="before"
+                                            [popoverContent]="popoverViews">
+                                            <ng-template #popoverViews>
+                                              <div class="view-main-site">
+                                                <ng-container *ngFor="let view of channel.views">
+                                                  <div class="view-container-site">
+                                                    <div class="view-header-title">
+                                                      <div class="main-tile-text">
+                                                          <span>{{view.name}}</span>
+                                                      </div>
+                                                    </div>
+                                                      <div class="view-progress-field">
+                                                            <dsep-progressbar progressType='default' [value]="view.percentage"></dsep-progressbar>
+                                                      </div>
+                                                      <div class="view-field-rate">
+                                                        <div class="view-rate-fraction">
+                                                            <div *ngIf="view.denominator > 0" class="fraction-text">
+                                                              <span class="fraction-numerator">{{view.numerator}}</span>/<span
+                                                              class="fraction-denominator">{{view.denominator}}</span>
+                                                            </div>
+                                                            <span *ngIf="view.denominator === 0" class="no-allocation-text">No Allocation</span>
+                                                        </div>
+                                                        <div class="view-rate-spacer"></div>
+                                                        <div class="view-rate-percentage">
+                                                            <span>{{view.percentage}}%</span>
+                                                        </div>
+                                                      </div>
+                                                  </div>
+                                                </ng-container>
+                                              </div>
+                                            </ng-template>
+                                          </dsep-popover>
+                                        </div>
+                                    </div>
+                                    <div class="channel-progress-field">
+                                          <dsep-progressbar progressType='default' [value]="channel.percentage"></dsep-progressbar>
+                                    </div>
+                                    <div class="channel-field-rate">
+                                        <div class="channel-rate-fraction">
+                                            <div *ngIf="channel.denominator > 0" class="fraction-text">
+                                              <span class="fraction-numerator">{{channel.numerator}}</span>/<span
+                                              class="fraction-denominator">{{channel.denominator}}</span>
+                                            </div>
+                                            <span *ngIf="channel.denominator === 0" class="no-allocation-text">No Allocation</span>
+                                        </div>
+                                        <div class="channel-rate-spacer"></div>
+                                        <div class="channel-rate-percentage">
+                                            <span>{{channel.percentage}}%</span>
+                                        </div>
+                                    </div>
+                                  </div>
+                              </ng-container>
+                          </div>
+                        </ng-template>
+                    </dsep-card>
+                     </div>
+                 <!-- <mat-card class="channels-card">
+                    <mat-card-header>
+                      <mat-card-title class="section-header-title">Channels</mat-card-title>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <div class="channels">
+                      <lead-delivery-details-channel type="link" [menuData]="emailMarketingData" leadOrders="8134"
+                                                     totalOrders="24345" percent="33" title="Email marketing">
+                      </lead-delivery-details-channel>
+                      <lead-delivery-details-channel type="link" [menuData]="telemarketingData" leadOrders="1413"
+                                                     totalOrders="12345" percent="11" btnText="View Sites" title="Telemarketing">
+                      </lead-delivery-details-channel>
+                      <lead-delivery-details-channel type="link" [menuData]="partnersData" leadOrders="20000"
+                                                     totalOrders="34345" percent="58" btnText="View Partners" title="Partners">
+                      </lead-delivery-details-channel>
+                    </div>
+                  </mat-card>-->
+              </div>
+            </div>
+          </ng-template>
+        </dsep-content>
+      </dsep-panel>
+      <div class="collapsible-center-button">
+        <button mat-icon-button color="primary" class="leads-btn-hideshow" (click)="togglePanel()">
+          <mat-icon>{{toggleIcon}}</mat-icon>
+          <mat-label>{{toggleText}}</mat-label>
+        </button>
+      </div>
+    </ng-template>
+  </dsep-content>
+</dsep-panel>
+
+<div class="delivery-tabs">
+  <dsep-tabs (tabChangeEvent)="onTabChangeLoadData($event)">
+    <dsep-tab-content id="notyetdeliveredtab" [tabContent]="notDeliveredTab" tabLabel="Not Yet Delivered">
+      <ng-template #notDeliveredTab>
+        <lead-detail-table id="leadDeliveryNotDelivered" (onToggleAutoPass)="onToggleAutoPass($event)"  [campaignData]="this.campaignData" [widgetsPullData]="this.widgetsPullData" [leadDeliveryDetailsDataSource]="notYetDeliveredDataSource"
+         [isNotYetDeliveredLeads]="true" [isDeliveredLeads]="false" [tabStatus]="deliveryStatusEnum['Not Yet Delivered']"></lead-detail-table>
+      </ng-template>
+    </dsep-tab-content>
+    <dsep-tab-content [tabContent]="deliveryQueue" tabLabel="Delivery Queue" *ngIf="this.campaignData['deliveryMethod']!==this.deliveryMethod.Autopass && this.campaignData['deliveryMethod']!==this.deliveryMethod['Autopass and Manual']">
+      <ng-template #deliveryQueue>
+        <lead-detail-table id="leadDeliveryQueue" [campaignData]="this.campaignData" [widgetsPullData]="this.widgetsPullData" [leadDeliveryDetailsDataSource]="deliveryQueueDataSource"
+        [isDeliverQueue]="true" [isDeliveredLeads]="false" [tabStatus]="deliveryStatusEnum['For Delivery']"></lead-detail-table>
+      </ng-template>
+    </dsep-tab-content>
+    <dsep-tab-content [tabContent]="deliveredTab" tabLabel="Delivered">
+      <ng-template #deliveredTab>
+        <lead-detail-table id="leadDeliveryDelivered" (onToggleAutoPass)="onToggleAutoPass($event)" [campaignData]="this.campaignData" [widgetsPullData]="this.widgetsPullData"
+        [leadDeliveryDetailsDataSource]="deliveredDataSource" [deliveredUsers]="deliveredUsers" [isDelivered]="true" [tabStatus]="deliveryStatusEnum['Delivered']"></lead-detail-table>
+      </ng-template>
+    </dsep-tab-content>
+
+    <dsep-tab-content id="potentialDuplicates" [tabContent]="potentialDuplicates" tabLabel="Potential Duplicates" *ngIf="false">
+      <ng-template #potentialDuplicates>
+      </ng-template>
+    </dsep-tab-content>
+    <dsep-tab-content [tabContent]="allLeads" tabLabel="All Leads">
+      <ng-template #allLeads>
+          <lead-detail-table id="leadDeliveryAll" [campaignData]="this.campaignData" (onToggleAutoPass)="onToggleAutoPass($event)" [widgetsPullData]="this.widgetsPullData" [leadDeliveryDetailsDataSource]="allLeadsDataSource"
+          [tabStatus]="deliveryStatusEnum['All']"></lead-detail-table>
+      </ng-template>
+    </dsep-tab-content>
+    <dsep-tab-content id="unqualifiedleadlist" [tabContent]="unqualifiedTab" tabLabel="Unqualified Leads" *ngIf="this.campaignData['deliveryMethod']!==this.deliveryMethod.Autopass && this.campaignData['deliveryMethod']!==this.deliveryMethod['Autopass and Manual']">
+      <ng-template #unqualifiedTab>
+          <lead-detail-table id="leadDeliveryUnqualified" [campaignData]="this.campaignData" [leadDeliveryDetailsDataSource]="unqualifiedLeadsDataSource"
+          [tabStatus]="deliveryStatusEnum['Unqualified']"></lead-detail-table>
+      </ng-template>
+    </dsep-tab-content>
+
+    <dsep-tab-content [tabContent]="errorTab" tabLabel="Error Leads" *ngIf="this.campaignData['deliveryMethod']==this.deliveryMethod.Autopass || this.campaignData['deliveryMethod']==this.deliveryMethod['Autopass and Manual']">
+      <ng-template #errorTab>
+        <lead-detail-table id="leadDeliveryErrorTab" (onToggleAutoPass)="onToggleAutoPass($event)" [campaignData]="this.campaignData" [leadDeliveryDetailsDataSource]="deliveryerrorsDataSource"
+        [tabStatus]="deliveryStatusEnum['Error']"  [isDelivereyError]="true"></lead-detail-table>
+      </ng-template>
+    </dsep-tab-content>
+    <dsep-tab-content id="unqualifiedleadlist" [tabContent]="unqualifiedTab" tabLabel="Unqualified Leads" *ngIf="this.campaignData['deliveryMethod']==this.deliveryMethod.Autopass || this.campaignData['deliveryMethod']==this.deliveryMethod['Autopass and Manual']">
+      <ng-template #unqualifiedTab>
+          <lead-detail-table id="leadDeliveryUnqualified" (onToggleAutoPass)="onToggleAutoPass($event)" [campaignData]="this.campaignData" [leadDeliveryDetailsDataSource]="unqualifiedLeadsDataSource"
+          [tabStatus]="deliveryStatusEnum['Unqualified']"></lead-detail-table>
+      </ng-template>
+    </dsep-tab-content>
+    <dsep-tab-content id="inleadsqaqueuetab" [tabContent]="inleadsqaqueuetab" tabLabel="Lead QA Queue">
+      <ng-template #inleadsqaqueuetab>
+          <lead-detail-table id="leadqaqueuetab" (onToggleAutoPass)="onToggleAutoPass($event)" [campaignData]="this.campaignData" [leadDeliveryDetailsDataSource]="leadQaQueueDataSource"
+          [tabStatus]="deliveryStatusEnum['In Lead QA']"></lead-detail-table>
+      </ng-template>
+    </dsep-tab-content>
+  </dsep-tabs>
+</div>

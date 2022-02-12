@@ -1,0 +1,19 @@
+<div class="campaign-progress-container">
+  <div class="header">
+    <p class="allocation-btn">{{title}} ({{data.length}})</p>
+  </div>
+  <div *ngFor="let row of data; let i=index" class="list-elements">
+    <mat-divider></mat-divider>
+    <div>
+      <span class="list-title">{{row.title}}</span>
+    </div>
+    <div>
+      <mat-progress-bar color="primary" [value]="getValue(i, data)"></mat-progress-bar>
+    </div>
+    <div>
+      <p class="lead-orders"><span class="lead-orders-value">{{row.leadOrders}}</span>/<span
+          class="total-orders">{{row.totalOrders}}</span></p>
+      <p class="percent">{{getValue(i, data)}}%</p>
+    </div>
+  </div>
+</div>

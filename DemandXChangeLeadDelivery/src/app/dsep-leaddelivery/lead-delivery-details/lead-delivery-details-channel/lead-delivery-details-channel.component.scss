@@ -1,0 +1,75 @@
+@import "../../../../_shared/dsep-components/v0.2/_scss/dsep-global-themes.scss";
+
+.channel-title {
+  margin-top: 0.5em;
+  font-size: 12pt;
+  font-weight: bold;
+  float: left;
+}
+
+.overall {
+  font-size: 8pt;
+  font-weight: bold;
+  color: $neutral-color-grey-50;
+}
+
+.popover {
+  width: fit-content;
+  margin: 0.5em;
+  position: relative;
+  float: right;
+  border: none;
+}
+
+.progress {
+  width: 95%;
+}
+
+.mat-progress-bar {
+  height: 10px;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+  background-color: $feedback-color-blue;
+}
+
+.lead-orders {
+  float: left;
+  font-size: 10pt;
+  font-weight: bold;
+  color: gray;
+}
+
+.lead-orders-value {
+  font-size: 10pt;
+  font-weight: bold;
+  color: $feedback-color-blue;
+}
+
+.total-orders {
+  font-size: 10pt;
+  font-weight: bold;
+  color: $brand-secondary-color;
+}
+
+.percent {
+  float: right;
+  color: $brand-primary-color;
+  font-size: 10pt;
+  font-weight: bold;
+}
+
+.lead-orders-container {
+  width: 95%;
+}
+
+.channel-card {
+  margin: 0.5em;
+}
+
+.no-alloc {
+  float: left;
+  font-size: 10pt;
+  font-weight: bold;
+  color: $accent-color-deep-orange;
+}

@@ -1,0 +1,26 @@
+/*https://pureincubation.atlassian.net/wiki/spaces/CX/pages/1993605121/Manual+UQ+and+Return+Process*/
+export const ReturnReasons = [
+    "Falls Outside Campaign Filters",
+    "Invalid Email Domain (Not in TAL)",
+    "Invalid/Bounce Email",
+    "Invalid Phone Number",
+    "Invalid List Value (Asset)",
+    "Previous Company",
+    "Suppressed Domain",
+    "Falls Outside Campaign Filters",
+    "Falls Outside Campaign Filters - Company Size",
+    "Falls Outside Campaign Filters - Job Title",
+    "Falls Outside Campaign Filters - Revenue",
+    "Falls Outside Campaign Filters - Industry",
+    "Falls Outside Campaign Filters - Location/Geography",
+    "Falls Outside Campaign Filters - Campaign Domain Limit",
+    "Suppressed Title",
+    "Duplicate",
+    "Duplicate - New New",
+    "Bot Lead",
+    "Bad Contact Data",
+    "Duplicate",
+    "Ahead of Pace",
+    "Reconcile",
+    "Customer Satisfaction Replacement"
+]

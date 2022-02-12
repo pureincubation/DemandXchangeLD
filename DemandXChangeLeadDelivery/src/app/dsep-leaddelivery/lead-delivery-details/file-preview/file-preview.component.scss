@@ -1,0 +1,81 @@
+::ng-deep .mat-menu-panel {
+  overflow: hidden;
+}
+
+::ng-deep .mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: none;
+}
+
+.link-item-trigger{
+  color: #0E90D0;
+  cursor: pointer;
+}
+.file-preview-container{
+  display: flex;
+  margin-bottom: 10px;
+  .action-section-area{
+    padding-left: 10px;
+    padding-right: 10px;
+    .file-preview-elements {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1em;
+      font-size: 9pt;
+      text-align: center;
+      .disable-gen{
+        pointer-events: none;
+        opacity: 0.5;
+        text-decoration: none;
+      }
+      .disabled-download{
+        pointer-events: none;
+        opacity: 0.5;
+        text-decoration: none;
+      }
+      .disabled-replace{
+        pointer-events: none;
+        opacity: 0.5;
+        text-decoration: none;
+      }
+    }
+    
+    .message-section{
+      height: 65px;
+      align-items: center;
+      justify-content: center;
+      //background-color: #f2ffe6;
+      background-color: #ffffff;
+      display: flex;
+      width: 230px;
+      ::ng-deep * .dsep-button-container{
+        margin-top: 5px;
+      }
+      .text-section {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        p {
+          margin: 0px;
+          &.file-text {
+            font-size: 16px;
+          }
+        }  
+      }
+    }
+  }
+  .excel-icon-file-preview {
+    .icon-circle {
+      padding: 5px;
+      background-color: #ccffcc;
+      border-radius: 50%;
+      &:hover{
+        background-color: rgb(49, 41, 41);
+      }
+      ::ng-deep * .mat-icon-button{
+         width: 50px;
+         height: 50px;
+      }
+    }
+  }
+}
+
+

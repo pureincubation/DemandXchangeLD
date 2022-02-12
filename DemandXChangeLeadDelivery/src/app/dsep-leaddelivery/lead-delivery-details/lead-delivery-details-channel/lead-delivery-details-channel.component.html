@@ -1,0 +1,21 @@
+<div class="channel-card">
+  <div>
+    <p class="channel-title">{{title | uppercase}} <span class="overall" *ngIf="menuData.length && title != 'Email marketing'">(OVERALL)</span></p>
+      <dsep-popover class="popover" [disabled]="!menuData.length" [type]="type" [btnText]="btnText" [position]="position"
+        [popoverContent]="popoverContent">
+        <ng-template #popoverContent>
+          <campaign-progress-allocation [data]="menuData" [title]="getPopoverTitle(title)"
+            [numberOfOffPacedSource]="numberOfOffPacedSource"></campaign-progress-allocation>
+        </ng-template>
+      </dsep-popover>
+  </div>
+  <div>
+    <mat-progress-bar class="progress" [value]="menuData.length ? percent : 0"></mat-progress-bar>
+  </div>
+  <div class="lead-orders-container">
+    <p *ngIf="menuData.length" class="lead-orders"><span class="lead-orders-value">{{leadOrders}}</span>/<span
+        class="total-orders">{{totalOrders}}</span></p>
+    <p class="no-alloc" *ngIf="!menuData.length">No Allocation</p>
+    <p class="percent">{{menuData.length ? percent : 0}}%</p>
+  </div>
+</div>

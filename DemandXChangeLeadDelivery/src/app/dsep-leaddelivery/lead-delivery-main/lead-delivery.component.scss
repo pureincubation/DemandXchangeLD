@@ -1,0 +1,659 @@
+@import "../../../_shared/dsep-components/v0.2/_scss/dsep-global-themes.scss";
+
+:host{
+   height: 100%;
+}
+
+.campaign-upper-segment-content{
+  border-bottom: 1px solid #EBEBEB;
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  .delivery-info-widgets{
+    display: flex;
+    margin-bottom: 10px;
+    ::ng-deep * .widget-standard{
+      &.inner-widget-container{
+        &.current-selected-widget{
+          .alldue-widget{
+            ::ng-deep * .mat-card-header{
+
+                background-color: #3277cd;
+                .mat-card-header-text{
+                  .mat-card-title{
+                    color: #fff
+                  }
+                  .mat-card-subtitle{
+                    color: #fff
+                  }
+                
+              }
+            }         
+          }
+          .allactive-widget{
+            ::ng-deep * .mat-card-header{
+
+              background-color: #8166b2;
+              .mat-card-header-text{
+                .mat-card-title{
+                  color: #fff
+                }
+                .mat-card-subtitle{
+                  color: #fff
+                }
+              
+            }
+            }   
+                    
+          }
+          .autopasstesting-widget{
+            ::ng-deep * .mat-card-header{
+
+              background-color: #ff9933;
+              .mat-card-header-text{
+                .mat-card-title{
+                  color: #fff
+                }
+                .mat-card-subtitle{
+                  color: #fff
+                }
+              
+            }
+            }   
+                     
+           }
+        }
+
+        
+        .alldue-widget{
+          ::ng-deep * .mat-card-header-text{
+            .mat-card-subtitle{
+              color: #3277cd;
+            }
+          }
+          ::ng-deep * .mat-card-header{
+            &:hover{
+                background-color: #3277cd;
+                .mat-card-header-text{
+                  .mat-card-title{
+                    color: #fff
+                  }
+                  .mat-card-subtitle{
+                    color: #fff
+                  }
+              }
+            }
+          }   
+                    
+        }
+        .allactive-widget{
+          ::ng-deep * .mat-card-header-text{
+            .mat-card-subtitle{
+              color: #8166b2;
+            }
+          }
+          ::ng-deep * .mat-card-header{
+            &:hover{
+                background-color: #8166b2;
+                .mat-card-header-text{
+                  .mat-card-title{
+                    color: #fff
+                  }
+                  .mat-card-subtitle{
+                    color: #fff
+                  }
+              }
+            }
+          }             
+         }
+         .autopasstesting-widget{
+          ::ng-deep * .mat-card-header-text{
+            .mat-card-subtitle{
+              color: #ff9933;
+            }
+          }
+          ::ng-deep * .mat-card-header{
+            &:hover{
+              background-color: #ff9933;
+                .mat-card-header-text{
+                  .mat-card-title{
+                    color: #fff
+                  }
+                  .mat-card-subtitle{
+                    color: #fff
+                  }
+              }
+            }
+          }           
+         }
+      }
+    }
+    ::ng-deep * .widgets-grid-items{
+       width: 570px;
+       .inner-widget-container{
+          &.current-selected-widget{
+            .todo-widget{
+              ::ng-deep * .mat-card-header{
+                background-color: $neutral-color-grey-40;
+                .mat-card-header-text{
+                  .mat-card-title{
+                    color: #fff
+                  }
+                  .mat-card-subtitle{
+                    color: #fff
+                  }
+                }
+              }
+            }
+            .inprogress-widget{
+              ::ng-deep * .mat-card-header{
+                background-color: $feedback-color-blue;
+                .mat-card-header-text{
+                  .mat-card-title{
+                    color: #fff
+                  }
+                  .mat-card-subtitle{
+                    color: #fff
+                  }
+                }
+              }
+            }
+            .approvalpending-widget{
+              ::ng-deep * .mat-card-header{
+                background-color: $feedback-color-amber;
+                .mat-card-header-text{
+                  .mat-card-title{
+                    color: #fff
+                  }
+                  .mat-card-subtitle{
+                    color: #fff
+                  }
+                }
+              }
+            }
+            .sendingfailed-widget{
+              ::ng-deep * .mat-card-header{
+                background-color: $accent-color-deep-orange;
+                .mat-card-header-text{
+                  .mat-card-title{
+                    color: #fff
+                  }
+                  .mat-card-subtitle{
+                    color: #fff
+                  }
+                }
+              }
+            }
+            .autopasserror-widget{
+              ::ng-deep * .mat-card-header{
+                background-color: $feedback-color-red;
+                .mat-card-header-text{
+                  .mat-card-title{
+                    color: #fff
+                  }
+                  .mat-card-subtitle{
+                    color: #fff
+                  }
+                }
+              }
+            }
+            .completed-widget{
+              ::ng-deep * .mat-card-header{
+                background-color: $feedback-color-green;
+                .mat-card-header-text{
+                  .mat-card-title{
+                    color: #fff
+                  }
+                  .mat-card-subtitle{
+                    color: #fff
+                  }
+                }
+              }
+              
+            }
+          }
+          &.widget-card-hover{
+            .todo-widget{
+              ::ng-deep * .mat-card-header{
+                &:hover{
+                    background-color: $neutral-color-grey-40;
+                    .mat-card-header-text{
+                      .mat-card-title{
+                        color: #fff
+                      }
+                      .mat-card-subtitle{
+                        color: #fff
+                      }
+                  }
+                }
+              }
+            }
+            .inprogress-widget{
+              ::ng-deep * .mat-card-header{
+                &:hover{
+                    background-color:$feedback-color-blue;
+                    .mat-card-header-text{
+                      .mat-card-title{
+                        color: #fff
+                      }
+                      .mat-card-subtitle{
+                        color: #fff
+                      }
+                  }
+                }
+              }
+            }
+            .approvalpending-widget{
+              ::ng-deep * .mat-card-header{
+                &:hover{
+                    background-color: $feedback-color-amber;
+                    .mat-card-header-text{
+                      .mat-card-title{
+                        color: #fff
+                      }
+                      .mat-card-subtitle{
+                        color: #fff
+                      }
+                  }
+                }
+              }
+            }
+            .sendingfailed-widget{
+              ::ng-deep * .mat-card-header{
+                &:hover{
+                    background-color: $accent-color-deep-orange;
+                    .mat-card-header-text{
+                      .mat-card-title{
+                        color: #fff
+                      }
+                      .mat-card-subtitle{
+                        color: #fff
+                      }
+                  }
+                }
+              }
+            }
+            .autopasserror-widget{
+              ::ng-deep * .mat-card-header{
+                &:hover{
+                    background-color:$feedback-color-red;
+                    .mat-card-header-text{
+                      .mat-card-title{
+                        color: #fff
+                      }
+                      .mat-card-subtitle{
+                        color: #fff
+                      }
+                  }
+                }
+              }
+            }
+            .completed-widget{
+              ::ng-deep * .mat-card-header{
+                &:hover{
+                    background-color:$feedback-color-green;
+                    .mat-card-header-text{
+                      .mat-card-title{
+                        color: #fff
+                      }
+                      .mat-card-subtitle{
+                        color: #fff
+                      }
+                  }
+                }
+              }
+            }
+          }
+           .todo-widget{
+              ::ng-deep * .mat-card-header-text{
+                .mat-card-subtitle{
+                  color: $neutral-color-grey-40;
+                }
+              }
+           }
+           .inprogress-widget{
+            ::ng-deep * .mat-card-header-text{
+                .mat-card-subtitle{
+                  color: $feedback-color-blue;
+                }
+            }
+           }
+           .approvalpending-widget{
+            ::ng-deep * .mat-card-header-text{
+                .mat-card-subtitle{
+                  color: $feedback-color-amber;
+                }
+            }
+           }
+           .sendingfailed-widget{
+            ::ng-deep * .mat-card-header-text{
+                .mat-card-subtitle{
+                  color: $accent-color-deep-orange;
+                }
+            }
+           }
+           .autopasserror-widget{
+            ::ng-deep * .mat-card-header-text{
+                .mat-card-subtitle{
+                  color: $feedback-color-red;
+                }
+            }
+           }
+           .completed-widget{
+            ::ng-deep * .mat-card-header-text{
+                  .mat-card-subtitle{
+                    color: $feedback-color-green
+                  }
+              }
+           }
+           ::ng-deep * .mat-card-header-text{
+               display: flex;
+               margin-right: 0px;
+               flex-direction: row;
+               flex: 1;
+               .mat-card-title{
+                 margin-bottom: 0px;
+                 margin-right: 23px;
+               }
+               .mat-card-subtitle{
+                  margin-bottom: 0px;
+                  align-self: end;
+                  flex: 1;
+                  text-align: end;
+               }
+           }
+       }
+    }
+  }
+  .buttons-tools-area{
+     display: flex;
+     .pop-file-preview{
+        align-self: flex-end;
+        &.leadfiletext-gray{
+          ::ng-deep * .file-text{
+            font-weight: 600;
+            margin-left: 10px;
+             color: gray;
+          }
+          ::ng-deep * .icon-circle{
+             background-color: rgb(199, 199, 199);
+             &:hover{
+              background-color: gray;
+            }
+          }
+        }
+        &.leadfiletext-orange{
+          ::ng-deep * .file-text{
+            font-weight: 600;
+            margin-left: 10px;
+             color: orange;
+          }
+          ::ng-deep * .icon-circle{
+            background-color: rgb(247, 190, 84);
+            &:hover{
+              background-color: orange;
+            }
+          }
+          ::ng-deep * .file-subtext{
+            color: grey;
+            font-size: 10px;
+            text-align: center;
+           }
+        }
+        &.leadfiletext-green{
+          ::ng-deep * .icon-circle{
+            background-color: #ccffcc;
+            &:hover{
+              background-color: green;
+            }
+          }
+          ::ng-deep * .file-text{
+             font-weight: 600;
+             margin-left: 10px;
+             color: green;
+          }
+          ::ng-deep * .file-subtext{
+            color: grey;
+            font-size: 10px;
+            text-align: center;
+          }
+        }
+        &.leadfiletext-red{
+          ::ng-deep * .icon-circle{
+            background-color: rgb(250, 109, 109);
+            &:hover{
+              background-color: red;
+            }
+          }
+          ::ng-deep * .file-text{  
+            font-weight: 600;
+            margin-left: 10px;
+             color: red;
+          }
+        }
+     }
+     .btn-noptif-cxm{
+      display: flex;
+      align-self: auto;
+      dsep-button{
+        margin-right: 10px;
+        ::ng-deep * .button-brand-primary-color:hover{
+          background-color: #1aa3ff;
+        }
+      }
+      dsep-button:last-child{
+        ::ng-deep * mat-icon{
+          transform: rotate(-45deg);
+        }
+      }
+     }
+  }
+  .ld-action-camp{
+    display: flex;
+  }
+  .default-spacer{
+    flex: 1 1 auto;
+  }
+  .available-space{
+     width: 80%;
+  }
+  .file-container-segment{
+     width: 20%;
+  }
+}
+
+.side-content-ld-campaign{
+    height: calc(100% - 50px);
+   ::ng-deep * tr.mat-header-row{
+      display: none;
+   }
+   ::ng-deep * .campaign-filter-custom-ld{
+      padding: 15px;
+      .containers-status-delivery{
+        display: flex;
+        margin-top: 20px;
+        padding-top: 5px;
+        ::ng-deep * .title-filter-campaign h6{
+            font-weight: 900;
+        }
+        .deliverysched-ld-campaign{
+            padding-left: 20px;
+        }
+      }
+   }
+
+   ::ng-deep *  mat-drawer{
+     width: 100% !important;
+   }
+   ::ng-deep * tbody{
+      display: block;
+   }
+
+   ::ng-deep * tbody tr {
+      background-color: white;
+   }
+   ::ng-deep * tbody tr td{
+     padding-left: 10px;
+     padding-right: 10px;
+     border-bottom: white;
+     vertical-align: top;
+     .camp-container-card-cell{
+         width: 400px;
+         display: flex;
+         border: 1px solid $neutral-color-grey-40;
+         border-radius: 10px;
+         padding-right: 20px;
+         cursor: pointer;
+         &:hover{
+           background-color: $neutral-color-grey-20;
+         }
+         &.selected-card{
+           background-color: $neutral-color-grey-20;
+         }
+        .selected-camp-card-ld{
+           border-top-left-radius: 10px;
+           border-bottom-left-radius: 10px;
+           width: 10px;
+           margin-right: 10px;
+           background-color: $brand-secondary-color;
+        }
+        .un-selected-camp-card-ld{
+          border-top-left-radius: 10px;
+          border-bottom-left-radius: 10px;
+          width: 10px;
+          margin-right: 10px;
+        }
+        .camp-card-cotnainer-ld{
+            width: 100%;
+            padding: 10px;
+            flex: auto;
+            .camp-card-id-status{
+              display: flex;
+              .staus-id-spacer{
+                flex: 1 1 auto;
+              }
+              .camp-status-id{
+                  margin-bottom: 10px;
+                  .font-color-black-status{
+                    color: black;
+                  }
+                  .font-color-status{
+                  color: $neutral-color-grey-5;
+                  }
+                  .camp-sub-text{
+                      text-align: center;
+                      border-radius: 12px;
+                      font-size: $font-size-theme-12;
+                      padding-left: 20px;
+                      padding-right: 20px;
+                  }
+              }
+            }
+            .camp-card-title{
+              font-family: $font-family-theme;
+              color: $brand-secondary-color;
+              white-space:pre-line;
+              span {
+                font-size: 14px;
+              }
+            }
+            .campaigns-ld-content-card{
+              display: flex;
+              .camp-left-content-card{
+                font-size: 10pt;
+                padding-top: 10px;
+                margin-right: 10px;
+                display: flex;
+                .frequenzy-text{
+                  width: 155px;
+                }
+              }
+              .camp-card-spacer{
+                flex: 1 1 auto;
+              }
+              .campaigns-ld-avatar-section-card{
+                display: flex;
+              }
+            }
+        }
+      }
+   }
+}
+.lead-Delivery-Campaigns{
+  height: calc(100vh - 225px);
+  ::ng-deep * .camp-card-toolbar-main{
+    ::ng-deep * .dsep-toolbar-main{
+      &.navbar{
+        flex-wrap: nowrap;
+      }
+      ::ng-deep * .toolbar-container-right{
+        flex-direction: row-reverse;
+        dsep-button{
+              .dsep-button-container{
+                    border-radius: 50%;
+                    &:hover{
+                      background-color: #1aa3ff;
+                    }
+              }
+        }
+
+       ::ng-deep * .dsep-mat-icon{
+             &.mat-icon{
+               fill: white;
+             }
+          }
+       ::ng-deep * .dsep-search{
+            border-radius: 15px;
+            background-color: $neutral-color-grey-5;
+          }
+        }
+    }
+
+  }
+  .toolbar-section-segmentgrid{
+      height: 50px;
+      display: flex;
+      padding: 10px;
+      .or-space-checkbox{
+        font-size: 10pt;
+        margin-right: 15px;
+        font-weight: 900;
+      }
+  }
+  ::ng-deep * .dsep-panel-drawer-container{
+    ::ng-deep *  mat-drawer-container{
+      height: 100% !important;
+    }
+    /*::ng-deep *  mat-drawer{
+        .mat-drawer-inner-container{
+          overflow: hidden;
+        }
+    }*/
+  }
+}
+  ::ng-deep{
+    .dsep-toolbar{
+      .modal-top-toolbar{
+        border: 1px solid #EBEBEB !important;
+      }
+      .toolbar-title-text{
+        padding:10px 0 !important;
+      }
+    }
+    .confirmation-form-container{
+      .confirmation-form{
+          .col{
+            padding: 0;
+          }
+          .mat-form-field-wrapper{
+            padding-bottom: 0;
+          }
+      }
+    }
+
+    .confirm-msg{
+      padding-left: 16px;
+      font-size: 14px;
+    }
+  }
+@include apply-background-color;

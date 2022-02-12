@@ -1,0 +1,16 @@
+<div class="delivered-leads-section">
+  <div *ngFor="let value of values">
+    <div class="icon-container">
+      <div *ngIf="value.config.type === 'icon'" class="icon">
+        <mat-icon>{{value.config.icon}}</mat-icon>
+      </div>
+      <div *ngIf="value.config.type === 'avatar'">
+        <dsep-avatar dsepavatar [imageSrc]="value.config.imageSrc" [text]="value.config.text"></dsep-avatar>
+      </div>
+      <div class="info">
+        <p class="header">{{ value.header }}</p>
+        <p class="description">{{ value.subheader }}</p>
+      </div>
+    </div>
+  </div>
+</div>

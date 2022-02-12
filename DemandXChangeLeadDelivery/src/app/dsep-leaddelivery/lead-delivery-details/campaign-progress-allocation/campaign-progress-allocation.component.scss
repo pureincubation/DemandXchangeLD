@@ -1,0 +1,83 @@
+@import "../../../../_shared/dsep-components/v0.2/_scss/dsep-global-themes.scss";
+
+.campaign-progress-container {
+  padding: 0.5em;
+}
+
+.header {
+  margin-bottom: 1em;
+}
+
+.allocation-btn {
+  color: $brand-secondary-color;
+  font-size: 10pt;
+  font-weight: bold;
+  cursor: pointer;
+  float: left;
+}
+
+.off-paced-source {
+  font-size: 10pt;
+  font-weight: bold;
+  float: right;
+}
+
+.off-paced-source-value {
+  color: red;
+}
+
+.list-elements {
+  display: inline-block;
+  width: 100%;
+}
+
+.list-title {
+  font-size: 10pt;
+  font-weight: bold;
+  margin-right: 1em;
+}
+
+.lead-orders {
+  float: left;
+  font-size: 10pt;
+  font-weight: bold;
+  color: gray;
+}
+
+.lead-orders-value {
+  font-size: 10pt;
+  font-weight: bold;
+  color: $brand-primary-color;
+}
+
+.total-orders {
+  font-size: 10pt;
+  font-weight: bold;
+  font-weight: bold;
+  color: $brand-secondary-color;
+}
+
+.percent {
+  float: right;
+  color: $brand-primary-color;
+  font-size: 10pt;
+  font-weight: bold;
+}
+
+.off-pace {
+  background: red;
+  border-radius: 5px;
+  padding: 0 0.3em;
+  color: white;
+  text-transform: uppercase;
+  font-size: 8pt;
+}
+
+.on-pace {
+  background: green;
+  border-radius: 5px;
+  padding: 0 0.3em;
+  color: white;
+  text-transform: uppercase;
+  font-size: 8pt;
+}

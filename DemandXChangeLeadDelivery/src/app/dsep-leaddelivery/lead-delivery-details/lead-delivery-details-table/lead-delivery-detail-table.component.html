@@ -1,0 +1,337 @@
+<dsep-dialog-window #autopassLogWindow [width]="450" [contentTmpId]="autoPassLogsContent" [controlClose]="true">
+  <dsep-toolbar location="top" titleText="Autopass Log" id="cxm-panel-top-toolbar" backgroundColorCls="modal-top-toolbar"></dsep-toolbar>
+  <ng-template #autoPassLogsContent>
+    <dsep-divider></dsep-divider>
+    <div class="autopasslog-msg">
+        <div class="autopasslog-request">
+           <h6>Request:</h6>
+           <p> {{autopassLogHolderContent.request}}</p>
+        </div>
+        <h6>*********************</h6>
+        <div  class="autopasslog-response">
+          <h6>Response:</h6>
+          <p> {{autopassLogHolderContent.response}}</p>
+        </div>
+     </div>
+     <dsep-divider></dsep-divider>
+  </ng-template>
+  <dsep-toolbar id="toolset-panel-top-toolbar" location="bottom" backgroundColorCls="modal-bottom-toolbar">
+    <dsep-button type="basic" text="Close" cls="button-primary" location="right" (btnClick)="closeAutopassLogDialog(autopassLogWindow)">
+    </dsep-button>
+  </dsep-toolbar>
+</dsep-dialog-window>
+
+<dsep-dialog-window #autopassconfirmdialog [width]="450" [contentTmpId]="autopassconfirmpausecontent" [controlClose]="true">
+  <dsep-toolbar location="top" titleText="Autopass State" backgroundColorCls="modal-top-toolbar"></dsep-toolbar>
+  <ng-template #autopassconfirmpausecontent>
+    <p class="confirm-msg">{{autopassSwitchHeader}}</p>
+  </ng-template>
+  <dsep-toolbar id="toolset-panel-top-toolbar" location="bottom" backgroundColorCls="modal-bottom-toolbar">
+    <dsep-divider></dsep-divider>
+    <dsep-button type="basic" text="CANCEL" cls="button-primary" location="right" (btnClick)="confirmAutopassAction(autopassconfirmdialog, false)">
+    </dsep-button>
+    <dsep-button type="raised" text="Confirm" cls="dsep-button button-brand-primary-color" location="right"
+      (btnClick)="confirmAutopassAction(autopassconfirmdialog, true)"></dsep-button>
+  </dsep-toolbar>
+</dsep-dialog-window>
+
+<dsep-dialog-window #manualUnqualification [width]="450" [contentTmpId]="manualUnqualificationContent" [controlClose]="true">
+  <dsep-toolbar location="top" titleText="Return Leads" id="cxm-panel-top-toolbar" backgroundColorCls="modal-top-toolbar"></dsep-toolbar>
+  <ng-template #manualUnqualificationContent>
+    <dsep-divider></dsep-divider>
+    <dsep-form #manUnqualForm [columns]="1" class="confirmation-form return-leads-form">
+      <dsep-form-section #cxmField [dsepFormGroup]="formUnqualification" [columns]="1">
+        <dsep-field type="radio" name="needReplacement" [values]="needReplacementList">
+        </dsep-field>
+        <dsep-field type="display" name="clientRejected" [text]="isClientReturn ? 'Client Returned' : 'Internal Returned'">
+        </dsep-field>
+        <dsep-field id="drodownselect" [isMultiple]="true" label="Please select a reason for return"
+                  name="ddp_returnReasons" type="dropdown" [values]="returnReasonsList">
+          <dsep-validation type="required" message=" "></dsep-validation>
+        </dsep-field>
+      </dsep-form-section>
+    </dsep-form>
+    <dsep-divider></dsep-divider>
+  </ng-template>
+  <dsep-toolbar id="toolset-panel-top-toolbar" location="bottom" backgroundColorCls="modal-bottom-toolbar">
+    <dsep-divider></dsep-divider>
+    <dsep-button type="basic" text="CANCEL" cls="button-primary" location="right" (btnClick)="closeManualQualiDialog(manualUnqualification)">
+    </dsep-button>
+    <dsep-button [disabled]="!formUnqualification.valid" type="raised" text="SUBMIT" cls="dsep-button button-brand-primary-color" location="right"
+      (btnClick)="submitUnqualified(manualUnqualification, dialogReturnConfirm)"></dsep-button>
+  </dsep-toolbar>
+</dsep-dialog-window>
+
+<dsep-dialog-window #dialogReturnConfirm [contentTmpId]="dialogReturnConfirmContent" [width]="500">
+  <dsep-toolbar location="top" titleText="Return Leads" id="cxm-panel-top-toolbar" backgroundColorCls="modal-top-toolbar"></dsep-toolbar>
+  <ng-template #dialogReturnConfirmContent>
+    <dsep-divider></dsep-divider>
+      <p class="confirm-msg" *ngIf="finalizedLeads.length === 0; else invalidInternalReturn">Confirming the <strong>{{isClientReturn ? 'Client Return' : 'Internal Return'}}</strong> of <strong>{{countLeads}}</strong> {{countLeads > 1 ? 'leads':'lead'}}, <strong> {{ isReplacementNeeded ? 'Replacement Needed' : 'Replacement Not Needed' }}</strong> due to <strong>{{ reasons }}</strong> Proceed?</p>
+      <ng-template #invalidInternalReturn>
+        <div class="confirm-msg">
+          Cannot return the following finalized leads:
+          <ul class="mt-3">
+            <li *ngFor="let lead of finalizedLeads">{{lead.email}}</li>
+          </ul>
+        </div>
+      </ng-template>
+    <dsep-divider></dsep-divider>
+  </ng-template>
+  <dsep-toolbar id="toolset-form-top-toolbar" location="bottom">
+    <dsep-button id="cancelbtn" type="raised" (btnClick)="closeReturnDialog(dialogReturnConfirm)" text="Cancel" cls="dsep-button button-brand-primary-color" location="right">
+    </dsep-button>
+    <dsep-button   id="yesbtn" type="raised" [visible]="isShowProceedButton" (btnClick)="confirmReturnDialog(dialogReturnConfirm)" text="Proceed" cls="dsep-button button-brand-primary-color" location="right">
+    </dsep-button>
+  </dsep-toolbar>
+</dsep-dialog-window>
+
+<dsep-dialog-window #dialogReassign [contentTmpId]="dialogReassignContent" [width]="500">
+  <dsep-toolbar location="top" titleText="Reassign Leads" id="cxm-panel-top-toolbar" backgroundColorCls="modal-top-toolbar"></dsep-toolbar>
+  <ng-template #dialogReassignContent>
+    <dsep-divider></dsep-divider>
+      <p class="confirm-msg">You are about to reassign <strong>{{countLeads}}</strong> leads to <strong>{{selectedSegement.text}}</strong>. Proceed?</p>
+    <dsep-divider></dsep-divider>
+  </ng-template>
+  <dsep-toolbar id="toolset-form-top-toolbar" location="bottom">
+    <dsep-button id="cancelbtn" type="raised" (btnClick)="closeReassignDialog(dialogReassign)" text="Cancel" cls="dsep-button button-brand-primary-color" location="right">
+    </dsep-button>
+    <dsep-button id="yesbtn" type="raised" (btnClick)="submitReassigned(dialogReassign)" text="Yes" cls="dsep-button button-brand-primary-color" location="right">
+    </dsep-button>
+  </dsep-toolbar>
+</dsep-dialog-window>
+
+<dsep-dialog-window #dialogReassign1 [contentTmpId]="dialogReassignContent1" [width]="500">
+  <dsep-toolbar location="top" titleText="Reassign Leads" id="cxm-panel-top-toolbar" backgroundColorCls="modal-top-toolbar"></dsep-toolbar>
+  <ng-template #dialogReassignContent1>
+    <dsep-divider></dsep-divider>
+    <dsep-form #reassignForm [columns]="1" class="confirmation-form">
+      <dsep-form-section #pxSegementsList [dsepFormGroup]="formReassign" [columns]="1">
+        <dsep-field id="pxSegementsList" label="Please select a PX segment"
+                  name="pxSegementsList" type="dropdown" [values]="pxSegements" (ddChange)="onPxSegementListChange($event)">
+                <dsep-validation
+                  message="PX segment is required"
+                  type="required">
+                </dsep-validation>
+        </dsep-field>
+      </dsep-form-section>
+    </dsep-form>
+
+    <dsep-divider></dsep-divider>
+  </ng-template>
+  <dsep-toolbar id="toolset-form-top-toolbar" location="bottom">
+    <dsep-button id="cancelbtn" type="raised" (btnClick)="closeReassignDialog(dialogReassign1)" text="Cancel" cls="dsep-button button-brand-primary-color" location="right">
+    </dsep-button>
+    <dsep-button id="yesbtn" type="raised" (btnClick)="onSubmitReassigned1(dialogReassign, dialogReassign1);" text="Reassign" cls="dsep-button button-brand-primary-color" location="right">
+    </dsep-button>
+  </dsep-toolbar>
+</dsep-dialog-window>
+
+<dsep-dialog-window #dialogBulkSearch [contentTmpId]="dialogBulkSearchContent" [width]="700">
+  <dsep-toolbar location="top" titleText="Bulk Lead Search" id="cxm-panel-top-toolbar" backgroundColorCls="modal-top-toolbar"></dsep-toolbar>
+  <ng-template #dialogBulkSearchContent>
+    <dsep-divider></dsep-divider>
+    <dsep-form #bulkSearchForm [columns]="2" class="confirmation-form">
+      <dsep-form-section #bulkSearchFieldList [dsepFormGroup]="formBulkSearch" [columns]="2">
+        <dsep-field id="bulkSearchFieldText" label="I am searching for: " rows="10" inputType="outline" showCounter="true" counterStyle="ld-counter-style" name="bulkSearchFieldText" type="textarea">
+            <dsep-validation
+              message="field is required"
+              type="required">
+            </dsep-validation>
+            <dsep-validation
+              type="maxlength"
+              [maxLength]="4000"
+              message="this should not exceed 4000 characters">
+            </dsep-validation>
+        </dsep-field>
+        <dsep-field id="bulkSearchFieldList" label="In this field: " name="bulkSearchFieldList" type="dropdown" [values]="bulkSearchColList" (ddChange)="onFieldListChange($event)">
+            <dsep-validation
+              message="field is required"
+              type="required">
+            </dsep-validation>
+        </dsep-field>       
+      </dsep-form-section>     
+    </dsep-form>
+    <dsep-divider></dsep-divider>
+  </ng-template>
+  <dsep-toolbar id="toolset-form-top-toolbar" location="bottom">
+    <dsep-button id="cancelbtn" type="raised" (btnClick)="closBulkSearchDialog(dialogBulkSearch)" text="Cancel" cls="dsep-button button-brand-primary-color" location="right">
+    </dsep-button>
+    <dsep-button id="yesbtn" type="raised" (btnClick)="submitBulkSearch(dialogBulkSearch)" [disabled]="isValidBulkSearch" text="Apply Filter" cls="dsep-button button-brand-primary-color" location="right">
+    </dsep-button>
+  </dsep-toolbar>
+</dsep-dialog-window>
+
+<ng-container *ngIf="isDeliveredLeads">
+  <div class="delivered-leads-section">
+    <div class="avatar-delivered-leads" *ngFor="let avt of deliveredUsers">
+      <dsep-avatar *ngIf="!avt.icon" [imageSrc]="avt.srcPath" [text]="avt.title" [colorCls]="avt.cls"
+        [subText]="avt.subTitle"></dsep-avatar>
+      <dsep-avatar *ngIf="avt.icon" [icon]="avt.icon" [text]="avt.title" [subText]="avt.subTitle"></dsep-avatar>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="!isDeliveredLeads">
+  <div class="delivery-info-widgets">
+    <div class="widget-toggle-container">
+      <dsep-widgets [widgetsList]="notDeliveredInfoWidgets" layoutType="horizontal" widgetType="default">
+      </dsep-widgets>
+      <div class="autopass-toggle-area" *ngIf="deliveryMethod === 1 || deliveryMethod === 3">
+        <dsep-switch [checked]="autopassSwitchState" name="autopassonoff" color="primary"  
+                     [dsepFormGroup]="formToggleAutopass" 
+                     [tooltip]="autopassSwitchToolTip" 
+                     (ddChange)="toggleAutopass($event, autopassconfirmdialog)"></dsep-switch>
+      </div>
+    </div>
+    <dsep-widgets [widgetsList]="notDeliveredInfoWidgetsMulti" layoutType="horizontal" widgetType="default">
+    </dsep-widgets>
+  </div>
+</ng-container>
+<div [class]="'lead-details-grid '+ 'lead-details-grid-' + tabStatus">
+  <dsep-grid #toolsetGrid [id]="id" [dataSource]="leadDeliveryDetailsDataSource" dataKey="Id" [editable]="true"
+    [isRowEditing]="false" [filter]="true" [hideShowColumn]="false" [enableStickyColumn]="true" [sortProxy]="true"
+    [expandableRow]="tabStatus === 16" [tmpIdExpandedRow]="unqualifiedExRowContent"
+    (onRowExpand)="onExpandShow($event)">
+    <dsep-toolbar id="toolset-panel-top-toolbar" location="top" [titleText]="titleTextNoOfLeads" titleLocation="right"
+      titleCls="number-of-selected-leads">
+
+      <dsep-field id="drodownselect" (ddChange)="onDropdownChange($event)" [visible]="isDropdownVisible" location="right"
+        label="Select action" [dsepFormGroup]="formddpGroupGeneric" name="ddp_select_generic" type="dropdown"
+        [values]="dropdownActionResourceData"></dsep-field>
+
+      <dsep-button id="submitdeliveryqueuebtn" [visible]="isSubmitButtonVisible" type="raised" (btnClick)="onSubmitGeneric(manualUnqualification, dialogReassign1)"
+        [disabled]="isSubmitButtonDisabled" text="Submit" cls="dsep-button background-color-green" location="right"></dsep-button>
+
+      <dsep-button id="removebtn" [visible]="showRemoveButton" type="raised" (btnClick)="onRemoveFromQueue()"
+        text="REMOVE" [disabled]="isRemoveDisabled" cls="dsep-button background-color-red" location="right">
+      </dsep-button>
+
+      <dsep-button id="returnCtabtn" [visible]="showReturnCtaButton" type="raised"
+        text="Return" cls="dsep-button button-brand-primary-color" location="right">
+      </dsep-button>
+
+      <dsep-button *ngIf="tabStatus === 1" [visible]="hasAgingUndelivered" type="iconbutton" location="right" icon="hourglass_full" cls="icon-only-stroke" (btnClick)="showAgingUndelivered()">
+        <dsep-tooltip text="Show Aging Undelivered"></dsep-tooltip>
+      </dsep-button>
+
+      <dsep-button *ngIf="tabStatus === 1" [visible]="!hasAgingUndelivered" type="iconbutton" location="right" icon="hourglass_empty" cls="icon-only-stroke" (btnClick)="showAllLeads()">
+        <dsep-tooltip text="Show All Leads"></dsep-tooltip>
+      </dsep-button>
+
+      <dsep-button type="iconbutton" location="right" icon="loop" cls="icon-only-stroke" (btnClick)="refreshGridLeadDelivery()">
+        <dsep-tooltip text="Refresh"></dsep-tooltip>
+      </dsep-button>
+      <dsep-button type="iconbutton" location="right" icon="file_download" (btnClick)="onLeadDeliveryExport()"
+        cls="icon-only-stroke">
+        <dsep-tooltip text="Export to CSV"></dsep-tooltip>
+      </dsep-button>
+      <dsep-button type="iconbutton" location="right" icon="bulk-search" cls="icon-only-stroke" (btnClick)="onBulkSearch(dialogBulkSearch)">
+        <dsep-tooltip text="Bulk Search"></dsep-tooltip>
+      </dsep-button>
+
+       <dsep-search-field searchText="Quick search" searhName="quickSearchName" (onSearchEmitValue)="onSearchEmitter($event)"></dsep-search-field>
+    </dsep-toolbar>
+    <dsep-toolbar id="leads-tbar-paginator" location="bottom">
+      <dsep-paginator location="right" [pageSize]="10" [pageOption]="[10, 50, 100, 200]"
+        [length]="this.leadDeliveryDetailsDataSource.dataTotalCount"></dsep-paginator>
+    </dsep-toolbar>
+    <dsep-column id='selectLead' columnType="checkbox" (onCheckChange)="checkLeadChange($event)" refName="select"
+      [isSticky]="true" [rowSelection]="true" *ngIf="tabStatus !== 32"></dsep-column>
+
+    <dsep-column id='leaddetailsstatus' columnType="chips" refName="status" [enumType]="allLeadsStatusEnum" headerText="Status"
+      [isSticky]="true" [isDefaultColumn]="true" [canFilter]="false" *ngIf="tabStatus !== 0 && tabStatus !== 16"></dsep-column>
+
+    <dsep-column id='leaddetailsstatus' columnType="chips" refName="status" [enumType]="allLeadsStatusEnum" headerText="Status"
+      [isSticky]="true" [isDefaultColumn]="true" [canFilter]="true" *ngIf="tabStatus === 0 || tabStatus === 16"></dsep-column>
+
+    <dsep-column id='leaddetailsDismissed' columnType="chips" refName="dismissed" [enumType]="dismissedEnum" headerText="Dismissed"
+      [isSticky]="true" [isDefaultColumn]="true" *ngIf="tabStatus === 16" [canFilter]="true"></dsep-column>
+
+    <dsep-column id='unqualifiedreason' columnType="text" refName="uqAndReturnNotes" *ngIf="tabStatus === 16" headerText="Unqualified Reason"
+      [isSticky]="true" [isDefaultColumn]="true" [canFilter]="true" [isEllipses]="true" limitTo="20"></dsep-column>
+
+    <dsep-column id='leaddetailsdeliveryStatus' columnType="chips" refName="deliveryStatus"
+      [enumType]="deliveryStatusEnum" headerText="Delivery Status" [isSticky]="(tabStatus !== 16 && tabStatus !== 32)" [isDefaultColumn]="true"
+      [canFilter]="false" *ngIf="tabStatus !== 0"></dsep-column>
+
+    <dsep-column id = 'leaddetailsdeliveryStatus' columnType = "chips" refName = "deliveryStatus" [enumType]="deliveryStatusEnum"
+    [canFilter]="true" headerText = "Delivery Status" [isSticky]="true" [isDefaultColumn]="true" *ngIf="tabStatus === 0"></dsep-column>
+
+    <dsep-column id='leaddetailsdeliveryDate'  columnType="date" format="yyyy-MM-dd HH:mm" [dateIsFilterTypeObject]="false" refName="deliveryDate" headerText="Delivery Date"
+      [isSticky]="(tabStatus !== 16 && tabStatus !== 32)" [isDefaultColumn]="true" [canFilter]="true"></dsep-column>
+
+    <dsep-column id='leaddautopasslog' columnType="text" (onLinkClick)="onClickViewLogs($event, autopassLogWindow)" refName="autopasslog" headerText="Autopass Logs" [isEllipses]="true" [limitTo]="30" (onTextRightClick)="rightClickCopyValue($event)"
+      [isDefaultColumn]="true"  [canFilter]="true" *ngIf="(deliveryMethod == 1 || deliveryMethod == 3 ) && (tabStatus === 4 || tabStatus === 8)" >
+      <dsep-tooltip id="autopasslogdata" text="autopasslog"></dsep-tooltip>
+    </dsep-column>
+
+    <dsep-column id='channelidcmp' columnType="text" refName="channel" headerText="Channel"
+      [isDefaultColumn]="true" [canFilter]="true"></dsep-column>
+
+    <dsep-column id='partneridcmp' columnType="text" refName="partner" headerText="Partner"
+      [isDefaultColumn]="true" [canFilter]="true"></dsep-column>
+
+    <dsep-column id='leaddetailsfirstname' columnType="text" refName="firstName" headerText="First Name"
+      [isDefaultColumn]="true" [canFilter]="true"></dsep-column>
+
+    <dsep-column id='leaddetailslastname' columnType="text" refName="lastName" headerText="Last Name"
+      [isDefaultColumn]="true" [canFilter]="true"></dsep-column>
+
+    <dsep-column id='leaddetailsemail' columnType="text" refName="email" headerText="Email Address"
+      [isDefaultColumn]="true" [canFilter]="true">
+      <dsep-tooltip id="unassignedtooltip" text="email"></dsep-tooltip>
+    </dsep-column>
+
+    <dsep-column id='leaddetailsaddress' columnType="text" refName="address" headerText="Address"
+      [isDefaultColumn]="true" [canFilter]="true"></dsep-column>
+
+    <dsep-column id='leaddetailscity' columnType="text" refName="city" headerText="City" [isDefaultColumn]="true"
+      [canFilter]="true"></dsep-column>
+
+    <dsep-column id='leaddetailsstate' columnType="text" refName="state" headerText="State" [isDefaultColumn]="true"
+      [canFilter]="true"></dsep-column>
+
+    <dsep-column id='leaddetailszip' columnType="text" refName="zip" headerText="Zip" [isDefaultColumn]="true"
+      [canFilter]="true"></dsep-column>
+
+    <dsep-column id='leaddetailscountry' columnType="text" refName="country" headerText="Country"
+      [isDefaultColumn]="true" [canFilter]="true"></dsep-column>
+
+    <dsep-column id='leaddetailscompany' columnType="text" refName="companyName" headerText="Company"
+      [isDefaultColumn]="true" [canFilter]="true"></dsep-column>
+
+    <dsep-column id='leaddetailsphone' columnType="text" refName="phone" headerText="Phone" [isDefaultColumn]="true"
+      [canFilter]="true"></dsep-column>
+
+    <dsep-column id='leaddetailscompanysize' columnType="text" refName="companySize" headerText="Company Size"
+      [isDefaultColumn]="true" [canFilter]="true"></dsep-column>
+
+      <dsep-column id='leaddetailsindustry' columnType="text" refName="industry" headerText="Industry"
+      [isDefaultColumn]="true" [canFilter]="true"></dsep-column>
+    <dsep-column id='leaddetailsjobtitle' columnType="text" refName="jobTitle" headerText="Job Title"
+      [isDefaultColumn]="true" [canFilter]="true"></dsep-column>
+
+    <dsep-column id='leaddetailscreatedAt'  columnType="date" format="yyyy-MM-dd HH:mm" [dateIsFilterTypeObject]="false" refName="createdAt" headerText="Created At"
+      [isDefaultColumn]="true" [canFilter]="true"></dsep-column>
+
+    <dsep-column id='leaddetailsleadResource' columnType="text" refName="leadResource" headerText="Lead Resource"
+      [isDefaultColumn]="true" [canFilter]="true"></dsep-column>
+
+      <dsep-column id='leaduqreasonsanddetails' columnType="text" refName = "uqAndReturnNotesText" headerText="UQ Reason and Details"
+      [isDefaultColumn]="true" [isEllipses]="true" limitTo="50" [canFilter]="true" *ngIf="(tabStatus !== 16 )"  >
+      <dsep-tooltip id="leaduqreasonsanddetails" text="tooltipreason" tooltipClass="text-preline"></dsep-tooltip></dsep-column>
+      
+      <dsep-column id='returnreason' columnType="text" refName = "reasonForReturn" headerText="Return Reason"
+      [isDefaultColumn]="true" [isEllipses]="true" limitTo="50" [canFilter]="true" *ngIf="tabStatus === 4 || tabStatus === 0">
+      <dsep-tooltip id="returnreason" text="tooltipreturnreason" tooltipClass="text-preline"></dsep-tooltip></dsep-column>
+  
+      <dsep-dynamic-column refName="customQuestionHeaders" [columnMeta]="{refName:'questionId', type: 'text', headerText: 'questionHeaderName'}"></dsep-dynamic-column>
+      <ng-template #unqualifiedExRowContent let-data="row">
+        <div class="grid-uq-reasons">
+          <dsep-grid #uqReasons id="leadUqReasons" [dataSource]="unqualifiedResonDataSource" [noDataMessage]="'No Unqualified Reasons found'">
+            <dsep-column id='unqualifiedreasons' columnType="text" refName="reason" headerText="UNQUALIFIED REASON" [canFilter]="false"></dsep-column>
+            <dsep-column id='unqualifiedreasonsdetails' columnType="text" refName="detail" headerText="DETAILS" [canFilter]="false"></dsep-column>
+          </dsep-grid>
+        </div>
+      </ng-template>
+  </dsep-grid>
+</div>

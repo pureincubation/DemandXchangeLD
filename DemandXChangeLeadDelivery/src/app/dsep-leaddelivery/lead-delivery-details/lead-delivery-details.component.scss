@@ -1,0 +1,276 @@
+@import "../../../_shared/dsep-components/v0.2/_scss/dsep-global-themes.scss";
+
+
+.collapsible-center-button {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 0px;
+  margin-top: 30px;
+}
+
+.leads-btn-hideshow {
+  border: none;
+  background-color: $neutral-color-grey-30;
+  margin: 0px !important;
+  border-radius: 0%;
+  width: auto;
+  height: auto;
+  padding-left: 5px;
+  padding-right: 5px;
+  line-height: 25px;
+  font-size: $font-size-theme-12;
+  font-family: $font-family-theme;
+  color: $neutral-color-grey-60;
+}
+
+.cards-row-1 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-right: 1em;
+  ::ng-deep {
+    .dsep-widget {
+      display: inline-flex;
+      height: 100%;
+    }
+  }
+}
+
+.delivery-tabs {
+  ::ng-deep {
+    .mat-tab-header {
+      .mat-tab-label-container {
+        flex-grow: 0;
+        .mat-tab-list {
+          flex-grow: 0;
+        }
+      }
+    }
+    .mat-tab-body-content{
+      overflow: hidden;
+    }
+  }
+}
+
+/* styles related to campaign progress and channels */
+.cards-row-2 {
+  display: grid;
+  grid-template-columns: 24.5% 75.5%;
+  gap: 1em;
+  margin: 1em 2em 1em 0em;
+}
+
+.campaign-progress-details {
+  ::ng-deep * .dsep-card-container mat-card{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
+    margin-bottom: 1.5em;
+    margin-right: 1.5em;
+    padding: 10px !important;
+    ::ng-deep * mat-card-title{
+      font-size: 14pt;
+      margin: 0em 0em 0.5em 0em;
+      color: rgba(0,0,0,.87);
+      .dsep-card-title{
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+/* remove default margin from mat-card-title */
+::ng-deep .mat-card-header-text {
+  margin: 0px !important;
+}
+
+mat-card {
+  padding: 0;
+}
+
+.section-header-title {
+  ::ng-deep * mat-card-title{
+    font-size: 12pt;
+    font-weight: bold;
+    color: $brand-secondary-color;
+    margin: 0.5em;
+  }
+}
+
+.view-main-site{
+    .view-container-site:not(:last-child){
+      border-bottom: 0.5px solid $neutral-color-grey-20;
+    }
+    .view-container-site{
+      
+      .view-header-title{
+        min-width: 350px;
+        display: flex;
+        .main-tile-text{
+           color: rgba(0,0,0,.87);
+           margin: 0.5em;
+           span{
+            font-size: 12pt;
+            font-weight: bold;
+           }
+        }
+        .view-title-spacer{
+            flex: 1 1 auto;
+        }
+        .view-link-name{
+          color: $brand-secondary-color;
+          margin: 0.8em;
+          .popover{
+            width: fit-content;
+            position: relative;
+            border: none;
+          }
+          span{
+            font-size: 10pt;
+            font-weight: bold;
+           }
+        }
+      }
+      .view-progress-field{
+         padding: 0 10px 0 10px;
+         font-size: 10px;
+         .mat-progress-bar {
+          height: 10px;
+        }
+        
+        ::ng-deep .mat-progress-bar-fill::after {
+          background-color: $feedback-color-blue;
+        }
+      }
+      .view-field-rate{
+         display: flex;
+         padding: 0 10px 10px 10px;
+         font-size: 14px;
+         .view-rate-fraction{
+          span{
+            font-weight: bold;
+            &.no-allocation-text{
+              font-size: 10pt;
+              font-weight: bold;
+              color: $accent-color-deep-orange;
+            }
+          }
+         }
+         .view-rate-spacer{
+            flex: 1 1 auto
+         }
+         .view-rate-percentage{
+          color: #0E90D0;
+          span{
+            font-weight: bold;
+          }
+        }
+      }
+    }
+}
+
+
+.channels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  .channel-fields:not(:last-child){
+    border-right: 0.5px solid $neutral-color-grey-20;
+  }
+  .channel-fields{
+    .channel-header-title{
+      display: flex;
+      .main-tile-text{
+         color: rgba(0,0,0,.87);
+         margin: 0.5em;
+         span{
+          font-size: 14pt;
+          font-weight: bold;
+         }
+      }
+      .channel-title-spacer{
+          flex: 1 1 auto;
+      }
+      .channel-link-name{
+        color: $brand-secondary-color;
+        margin: 0.8em;
+        .popover{
+          width: fit-content;
+          position: relative;
+          border: none;
+        }
+        span{
+          font-size: 10pt;
+          font-weight: bold;
+         }
+      }
+    }
+    .channel-progress-field{
+       padding: 0 10px 0 10px;
+       font-size: 10px;
+       .mat-progress-bar {
+        height: 10px;
+      }
+      
+      ::ng-deep .mat-progress-bar-fill::after {
+        background-color: $feedback-color-blue;
+      }
+    }
+    .channel-field-rate{
+       display: flex;
+       padding: 0 10px 10px 10px;
+       font-size: 14px;
+       .channel-rate-fraction{
+        span{
+          font-weight: bold;
+          &.no-allocation-text{
+            font-size: 10pt;
+            font-weight: bold;
+            color: $accent-color-deep-orange;
+          }
+        }
+       }
+       .channel-rate-spacer{
+          flex: 1 1 auto
+       }
+       .channel-rate-percentage{
+        color: #0E90D0;
+        span{
+          font-weight: bold;
+        }
+      }
+    }
+
+  }
+
+}
+
+.overall {
+  font-weight: bold;
+}
+
+.overall-values {
+  font-weight: bold;
+}
+.spinner{
+  display: flex;
+  justify-content: space-around;
+  ::ng-deep {
+    form{
+      margin: 0;
+    }
+  }
+}
+
+lead-delivery-details-channel {
+  border-right: 0.5px solid lightgray;
+}
+
+lead-delivery-details-channel:last-child {
+  border-right: none;
+}
+
+::ng-deep .dsep-toolbar-main{
+  padding-left: 5px;
+  font-weight: bold;
+  color: #005586;
+}

@@ -1,0 +1,369 @@
+@mixin applyLeadStatusWithReason {
+  .chip-color-custom-w-reason * .mat-chip.mat-standard-chip{
+      border: 1px solid #4C9D50;
+      background-color: #F5F5F5;
+      .dsep-chips-cell{
+        color: #4C9D50;
+      }
+  }
+}
+
+@mixin  applyLeadStatusUqNotDismissed {
+  .chip-color-custom-uqnotdismissed * .mat-chip.mat-standard-chip{
+      border: 1px solid #ED4E4A;
+      background-color: #F5F5F5;
+      .dsep-chips-cell{
+        color: #ED4E4A;
+      }
+  }
+}
+
+.lead-details-grid{
+  ::ng-deep * .dsep-toolbar-main{ 
+     ::ng-deep * .dsep-mat-icon{
+      width: 25px;
+      height: 50px;
+   }
+  }
+}
+
+.autopasslog-msg{
+    margin: 10px;
+    .autopasslog-request{
+       p{
+         word-break: break-all;
+       }
+    }
+    .autopasslog-response{
+      p{
+        word-break: break-all;
+      }
+   }
+}
+
+.number-of-selected-leads{
+    font-size: 15px;
+}
+
+.delivered-leads-section {
+    display: grid;
+    grid-auto-flow: column;
+    margin: 1em;
+}
+
+.delivery-info-widgets{
+  justify-content: space-between;
+  .widget-toggle-container{
+    display: flex;
+    .autopass-toggle-area{
+        margin-top: 20px;
+    }
+  }
+  background: #fff;
+    display: flex;
+    margin-top: 15px;
+    margin-right: 20px;
+    margin-bottom: 15px;
+    dsep-statuswidget:not(:first-child){
+      margin-left: 20px;
+    }
+}
+
+::ng-deep.avatar-delivered-leads * .lfc-avatar-look{
+    background-color: #4C9D50 !important;
+}
+::ng-deep.avatar-delivered-leads * .cxm-avatar-look{
+    background-color: #3F50B5 !important;
+}
+
+.avatar-delivered-leads {
+    display: inline-flex;
+    align-items: center;
+    .icon {
+        margin: 1.5em;
+        transform: scale(1.5);
+    }
+    .info {
+        .header {
+            font-style: bold;
+        }
+        .description {
+            font-size: 12px;
+            color: gray;
+        }
+    }
+}
+.lead-details-grid{
+  margin-right: 1em;
+  &.lead-details-grid-0{
+    ::ng-deep dsep-grid{
+      ::ng-deep{
+        .mat-drawer-container{
+          height: 100% !important;
+        }
+        .grid-set-sticky-container{
+          table{
+            th{
+              min-width: 150px;
+            }
+            td{
+              min-width: 150px;
+            }
+            .mat-column-select {
+              min-width: 60px;
+            }
+            .mat-table-sticky.mat-column-status{
+              left:60px !important;
+              @include applyLeadStatusWithReason;
+              @include applyLeadStatusUqNotDismissed;
+            }
+            .mat-table-sticky.mat-column-deliveryStatus{
+              left:210px !important;
+            }
+            .mat-table-sticky.mat-column-deliveryDate{
+              left:360px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.lead-details-grid-1{
+    ::ng-deep dsep-grid{
+      ::ng-deep{
+        .mat-drawer-container{
+          height: 100% !important;
+        }
+        .grid-set-sticky-container{
+          table{
+            th{
+              min-width: 150px;
+            }
+            td{
+              min-width: 150px;
+            }
+            .mat-column-select {
+              min-width: 60px;
+            }
+            .mat-table-sticky.mat-column-status{
+              left:60px !important;
+              @include applyLeadStatusWithReason;
+            }
+            .mat-table-sticky.mat-column-deliveryStatus{
+              left:210px !important;
+            }
+            .mat-table-sticky.mat-column-deliveryDate{
+              left:360px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.lead-details-grid-2{
+    ::ng-deep dsep-grid{
+      ::ng-deep{
+        .mat-drawer-container{
+          height: 100% !important;
+        }
+        .grid-set-sticky-container{
+          table{
+            th{
+              min-width: 150px;
+            }
+            td{
+              min-width: 150px;
+            }
+            .mat-column-select {
+              min-width: 60px;
+            }
+            .mat-table-sticky.mat-column-status{
+              left:60px !important;
+              @include applyLeadStatusWithReason;
+            }
+            .mat-table-sticky.mat-column-deliveryStatus{
+              left:210px !important;
+            }
+            .mat-table-sticky.mat-column-deliveryDate{
+              left:360px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.lead-details-grid-4{
+    ::ng-deep dsep-grid{
+      ::ng-deep{
+        .mat-drawer-container{
+          height: 100% !important;
+        }
+        .grid-set-sticky-container{
+          table{
+            th{
+              min-width: 150px;
+            }
+            td{
+              min-width: 150px;
+            }
+            .mat-column-select {
+              min-width: 60px;
+            }
+            .mat-table-sticky.mat-column-status{
+              left:60px !important;
+              @include applyLeadStatusWithReason;
+            }
+            .mat-table-sticky.mat-column-deliveryStatus{
+              left:210px !important;
+            }
+            .mat-table-sticky.mat-column-deliveryDate{
+              left:360px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.lead-details-grid-8{
+    ::ng-deep dsep-grid{
+      ::ng-deep{
+        .mat-drawer-container{
+          height: 100% !important;
+        }
+        .grid-set-sticky-container{
+          table{
+            th{
+              min-width: 150px;
+            }
+            td{
+              min-width: 150px;
+            }
+            .mat-column-select {
+              min-width: 60px;
+            }
+            .mat-table-sticky.mat-column-status{
+              left:60px !important;
+              @include applyLeadStatusWithReason;
+            }
+            .mat-table-sticky.mat-column-deliveryStatus{
+              left:210px !important;
+            }
+            .mat-table-sticky.mat-column-deliveryDate{
+              left:360px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.lead-details-grid-16{
+    ::ng-deep dsep-grid{
+      ::ng-deep{
+        .mat-drawer-container{
+          height: 100% !important;
+        }
+        .grid-set-sticky-container{
+          table{
+            ::ng-deep * .grid-uq-reasons{
+              width: 100vw;
+              ::ng-deep * .dsep-grid-container{
+                width: 100vw !important;
+                table{
+                  width: 100vw !important;
+                  .mat-column-reason{
+                    width: 30%;
+                  }
+                }
+              }
+
+            }
+            th{
+              min-width: 150px;
+            }
+            td{
+              min-width: 150px;
+            }
+            .mat-column-select {
+              min-width: 60px;
+            }
+            .mat-table-sticky.mat-column-status{
+              left:60px !important;
+              @include applyLeadStatusWithReason;
+              @include applyLeadStatusUqNotDismissed;
+            }
+            .mat-table-sticky.mat-column-dismissed{
+              left:210px !important;
+            }
+            .mat-table-sticky.mat-column-uqAndReturnNotes {
+              left:360px !important;
+            }
+            .mat-table-sticky.mat-column-indicatorCol{
+              min-width: 60px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.lead-details-grid-32{
+    ::ng-deep dsep-grid{
+      ::ng-deep{
+        .mat-drawer-container{
+          height: 100% !important;
+        }
+        .grid-set-sticky-container{
+          table{
+            th{
+              min-width: 150px;
+            }
+            td{
+              min-width: 150px;
+            }
+            .mat-table-sticky.mat-column-status{
+              @include applyLeadStatusWithReason;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+::ng-deep{
+  .dsep-toolbar{
+    .modal-top-toolbar{
+      border: 1px solid #EBEBEB !important;
+    }
+    .toolbar-title-text{
+      padding:10px 0 !important;
+    }
+  }
+
+  .confirm-msg {
+    padding-left: 16px;
+    font-size: 14px;
+    margin-top: 1rem;
+  }
+
+  .confirmation-form dsep-displayfield {
+    mat-label {
+      background: #ccc;
+      padding: 4px;
+      margin-top: 1rem;
+      display: inline-block;
+      cursor: pointer;
+    }
+  }
+
+  .return-leads-form {
+    .mat-placeholder-required {
+      color: red;
+    }
+  
+    .mat-error {
+      display: none;
+    }
+  }
+  
+}
+ 

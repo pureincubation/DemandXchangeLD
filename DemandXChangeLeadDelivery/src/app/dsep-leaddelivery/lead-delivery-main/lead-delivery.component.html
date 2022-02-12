@@ -1,0 +1,274 @@
+
+
+
+<dsep-dialog-window #dialogFileUpload [contentTmpId]="windowContentFileUpload" [width]="500">
+  <ng-template #windowContentFileUpload>
+    <dsep-file-upload class="inner-content"  [multipleFiles]="true"
+    [uploadUrl]="uploadUrl"
+    [header]="assetTemplate"
+    [multipleFiles]="false"
+    [fileExtensionFilter]="extensions"
+    (CompleteItem)="onUploadComplete($event)"
+    (ErrorRaised)="onErrorRaised($event)"
+    (RemoveItem)="removeFile($event)"
+    (FileAddedToTable)="checkIfFileAdded($event)" ></dsep-file-upload>
+  </ng-template>
+  <dsep-toolbar id="toolset-form-top-toolbar" location="bottom">
+    <dsep-button id="closebtn" type="raised" (btnClick)="closeUploadWindow(dialogFileUpload)" text="Close" cls="dsep-button button-brand-primary-color" location="right">
+    </dsep-button>
+    <dsep-button id="uploadbtn" type="raised" (btnClick)="uploadFile(dialogFileUpload)" text="Upload" cls="dsep-button button-brand-primary-color" location="right">
+    </dsep-button>
+  </dsep-toolbar>
+</dsep-dialog-window>
+
+<dsep-dialog-window #cxmDeliveryDialog [width]="450" [contentTmpId]="cxmContent" [controlClose]="true">
+    <dsep-toolbar location="top" titleText="Deliver Leads to Client" id="cxm-panel-top-toolbar" backgroundColorCls="modal-top-toolbar"></dsep-toolbar>
+    <ng-template #cxmContent>
+      <dsep-divider></dsep-divider>
+      <div class="confirmation-form-container">
+      <dsep-form #cxmForm [columns]="1" [formSource]="cxmModalFormSource" class="confirmation-form">
+        <dsep-form-section #cxmField [columns]="1">
+          <dsep-field rows="3" label="Please enter your delivery notes (optional only)" type="textarea"
+            name="deliveryNotes" inputType="outline">
+          </dsep-field>
+        </dsep-form-section>
+      </dsep-form>
+      <dsep-divider></dsep-divider>
+    </div>
+    </ng-template>
+    <dsep-toolbar id="toolset-panel-top-toolbar" location="bottom" backgroundColorCls="modal-bottom-toolbar">
+      <dsep-divider></dsep-divider>
+      <dsep-button type="basic" text="CANCEL" cls="button-primary" location="right" (btnClick)="cxmDialogClose(cxmDeliveryDialog, true)">
+      </dsep-button>
+      <dsep-button type="raised" text="DELIVER" [disabled]="deliverLeadsBtnDisable" cls="dsep-button button-brand-primary-color" location="right"
+        (btnClick)="cxmDialogClose(cxmDeliveryDialog, false)"></dsep-button>
+    </dsep-toolbar>
+</dsep-dialog-window>
+
+<dsep-dialog-window #lfcConfirmDialog [width]="450" [contentTmpId]="lfcContent" [controlClose]="true">
+    <dsep-toolbar location="top" [titleText]="uploadDialogHeaderText" backgroundColorCls="modal-top-toolbar"></dsep-toolbar>
+    <ng-template #lfcContent>
+      <p class="confirm-msg">{{uploadDialogDescriptionText}}</p>
+    </ng-template>
+    <dsep-toolbar id="toolset-panel-top-toolbar" location="bottom" backgroundColorCls="modal-bottom-toolbar">
+      <dsep-divider></dsep-divider>
+      <dsep-button type="basic" text="CANCEL" cls="button-primary" location="right" (btnClick)="lfcDialogClose(lfcConfirmDialog, true)">
+      </dsep-button>
+      <dsep-button type="raised" text="SEND" cls="dsep-button button-brand-primary-color" location="right"
+        (btnClick)="lfcDialogClose(lfcConfirmDialog, false)"></dsep-button>
+    </dsep-toolbar>
+</dsep-dialog-window>
+
+<dsep-dialog-window #markCampaignDialog [width]="450" [controlClose]="true">
+  <dsep-toolbar location="top" [titleText]="uploadDialogHeaderText" backgroundColorCls="modal-top-toolbar"></dsep-toolbar>
+  <dsep-toolbar id="toolset-panel-top-toolbar" location="bottom" backgroundColorCls="modal-bottom-toolbar">
+    <dsep-divider></dsep-divider>
+    <dsep-button type="basic" text="NO" cls="button-primary" location="right" (btnClick)="paDialogClose(markCampaignDialog, true)">
+    </dsep-button>
+    <dsep-button type="raised" text="YES" cls="dsep-button button-brand-primary-color" location="right"
+      (btnClick)="paDialogClose(markCampaignDialog, false)"></dsep-button>
+  </dsep-toolbar>
+</dsep-dialog-window>
+
+<dsep-toolbar id="leads-main-ld-title" location="top" titleText="Lead Management and Delivery">
+</dsep-toolbar>
+
+<div class="campaign-upper-segment-content">
+  <div class="delivery-info-widgets">
+     <ng-container *ngFor="let widget of deliveryStatusWidgets.data.widgetCardsStatus">
+        <dsep-widgets-card [text]="widget.text" 
+                          [widgetItems]="widget.items" [cls]="widget.cls"
+                          [icon]="widget.icon"
+                          [bcolor]="widget.bcolor"
+                          [color]="widget.color"
+                          [subText]="widget.subText" 
+                          [layoutType]="widget.layout" 
+                          [selection]="true"
+                          [isSelected]="widget.isSelected"
+                          [key]="widget.key"
+                          (widgetClick)="onWidgetClick($event)">
+        </dsep-widgets-card>
+     </ng-container>
+  </div>
+  <div class="default-spacer"></div>
+  <div class="buttons-tools-area">
+    <div [ngClass] ="['pop-file-preview', 'leadfiletext-' + leadFileTextColor]">
+      <file-preview
+      [message]="fileMessage"
+      [subMessage]="dateTimeString"
+      [showRegenerateLink] ="showRegenerateLink"
+      [disableDownload]="disableDonwloadLink"
+      [disableReplace]="disableReplaceLink"
+      [disableRegen]="disableRegenLink"
+      [disableGen]="disableGenLink"
+      (onDownloadClick)="onDownloadFile($event)"
+      (onReplaceClick)="onReplaceFile(dialogFileUpload)"
+      (onRegenerateClick)="onRegenFile($event)"
+      (onGenerateClick)="onGenerateFile($event)"
+      (onRefereshClick) ="onRefreshFile()"
+      ></file-preview>
+    </div>
+    <div class="btn-noptif-cxm">
+      <dsep-button type="fabbutton" location="right" icon="bell_outline" cls="dsep-button button-brand-primary-color" (btnClick)="notifyCXM(lfcConfirmDialog)" *ngIf="showLFCDeliveryButton">
+        <dsep-tooltip text="NOTIFY CXM"></dsep-tooltip>
+      </dsep-button>
+      <dsep-button type="fabbutton" location="right" icon="send" cls="dsep-button button-brand-primary-color" (btnClick)="deliverLeadsToClient(cxmDeliveryDialog)" *ngIf="showCXMDeliveryButton">
+        <dsep-tooltip [text]="deliverBtnToolTip"></dsep-tooltip>
+      </dsep-button>
+      <dsep-button type="fabbutton" location="right" icon="task" cls="dsep-button button-brand-primary-color" (btnClick)="markCampaignComplete(markCampaignDialog)" *ngIf="showPADeliveryButton">
+        <dsep-tooltip text="Mark Campaign Complete Today"></dsep-tooltip>
+      </dsep-button>
+    <!-- <dsep-button id="notifycsmbtn" type="raised" text="Notify CXM"
+    cls="dsep-button button-brand-primary-color" location="right"></dsep-button> -->
+    <!-- <dsep-button type="iconbutton" location="right" icon="notifications_none"  (btnClick)="notifyCXM()" cls="dsep-button button-brand-primary-color">
+      <dsep-tooltip text="NOTIFY CXM"></dsep-tooltip>
+    </dsep-button> -->
+  </div>
+
+  </div>
+</div>
+<div class="lead-Delivery-Campaigns">
+  <dsep-panel
+      [tplContent]="leadDeliveryMain"
+      layout='sideleft'
+      [tplSideContent]="leadDeliverMainSide"
+      [autoSizeNav]="true">
+      <ng-template #leadDeliverMainSide>
+        <div class="camp-card-toolbar-main">
+        <dsep-toolbar id="leads-main-ld-camp-sidetitle"  location="top" backgroundColorCls="background-color-secondary" titleText="CAMPAIGNS">
+          <dsep-search-field id="seach-camp-card" searchText="Quick search" searchName="quickSearchCampaignID" [keyTriggerNum]="5" (onSearchEmitValue)="onSearchCardEmitter($event)"></dsep-search-field>
+          <dsep-button type="iconbutton" location="right" (btnClick)="filterToggle($event)">
+            <dsep-icon icon="filter_alt"></dsep-icon>
+            <dsep-tooltip id="filterTip" text="Campaign Filter"></dsep-tooltip>
+         </dsep-button>
+         <dsep-button type="iconbutton" location="right" icon="loop" (btnClick)="refreshCampaignCard()">
+            <dsep-tooltip text="Refresh"></dsep-tooltip>
+          </dsep-button>
+        </dsep-toolbar>
+      </div>
+        <div class="side-content-ld-campaign">
+          <dsep-grid #leaddeliverycampaignCard id="leaddeliverycampaignCard" [dataSource]="ldCampaignPXDataSource" [customFilter]="campaignCustomFilter" [showLoader]="showCampaignLoader">
+            <dsep-column id='pxCampaign_id' columnType ="card" refName="pxCampaign" [tplContent]="cardCampaign" [canFilter]="true">
+              <ng-template #cardCampaign let-data="data">
+                <div [ngClass]="{'camp-container-card-cell':true, 'selected-card': currentSelected === data}" (click)="onCampaignClick(data)">
+                  <div [ngClass]="{'selected-camp-card-ld':currentSelected === data, 'un-selected-camp-card-ld': currentSelected !== data}"></div>
+                  <div class="camp-card-cotnainer-ld">
+                    <div class="camp-card-id-status">
+                      <div><h6>{{data.pxCampaignID}}</h6></div>
+                      <div class="staus-id-spacer"></div>
+                      <div class="camp-status-id">
+                          <div *ngIf="data.deliveryStatus.value !== 6 && data.deliveryStatus.value !== 7" [class]="'camp-sub-text background-color-' + data.deliveryStatus.color + ' ' + (data.deliveryStatus.value === 4 ? 'font-color-black-status': 'font-color-status')">{{ campaignStatus[data.deliveryStatus.value] }}</div>
+                          <div *ngIf="data.deliveryStatus.value === 6 || data.deliveryStatus.value === 7" [matTooltip]="data.deliveryStatusDetails ? data.deliveryStatusDetails : ''" [class]="'camp-sub-text background-color-' + data.deliveryStatus.color + ' ' + (data.deliveryStatus.value === 4 ? 'font-color-black-status': 'font-color-status')">{{ campaignStatus[data.deliveryStatus.value] }}</div>
+                        </div>
+                    </div>
+                    <div class="camp-card-title">
+                      <h5><span (click)="onCampaignClick(data)">{{data.campaignName}}</span></h5>
+                    </div>
+                    <div class="campaigns-ld-content-card">
+                      <div class="camp-left-content-card"><dsep-icon icon="calendar_today"></dsep-icon><span class="frequenzy-text">{{ data.deliveryFrequencies.join(', ')}}</span></div>
+                      <div class="camp-card-spacer"></div>
+                      <div class="campaigns-ld-avatar-section-card">
+                        <div>
+                          <dsep-avatar [toolTipMessage]="data.lfcUser.fullName" [text]="data.lfcUser.tipText !== 'Unassigned' ? data.lfcUser.firstName + ' ' + data.lfcUser.lastName : ''">
+                          </dsep-avatar>
+                        </div>
+                        <div>
+                            <dsep-avatar [toolTipMessage]="data.cxmUser.fullName" [text]="data.cxmUser.tipText !== 'Unassigned' ? data.cxmUser.firstName + ' ' + data.cxmUser.lastName : ''">
+                            </dsep-avatar>
+                        </div>
+                        <div>
+                            <dsep-avatar [toolTipMessage]="data.paUser.fullName" [text]="data.paUser.tipText !== 'Unassigned' ?  data.paUser.firstName + ' ' + data.paUser.lastName : ''">
+                            </dsep-avatar>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </dsep-column>
+            <ng-template #campaignCustomFilter let-colfields="fields" let-operators="operators" let-formFilterGroup="filterForm">
+                <div class="campaign-filter-custom-ld">
+                  <dsep-dropdown label="LFC" type="dropdown" (iconClick)="onHandleIconClick($event, 'lfc', this.filterFormGroup)" (individualSelection)="onHandleIndividualClick($event,'lfc', this.filterFormGroup)" [defaultOptionVisible]="true" inputType="fill" [disabled] = "disabledCampCardFilterButton"
+                  [dsepFormGroup]="this.filterFormGroup" defaultOptionValue="All" name="lfc" [values]="lfcUsers" [isMultiple]="true"></dsep-dropdown>
+                  <dsep-dropdown label="CXM" type="dropdown" (iconClick)="onHandleIconClick($event, 'cxm', this.filterFormGroup)" (individualSelection)="onHandleIndividualClick($event,'cxm', this.filterFormGroup)" [defaultOptionVisible]="true"  inputType="fill" [disabled] = "disabledCampCardFilterButton"
+                  [dsepFormGroup]="this.filterFormGroup" defaultOptionValue="All" name="cxm" [values]="cxmUsers" [isMultiple]="true"></dsep-dropdown>
+                  <dsep-dropdown label="PA" type="dropdown" (iconClick)="onHandleIconClick($event, 'pa', this.filterFormGroup)" (individualSelection)="onHandleIndividualClick($event,'pa', this.filterFormGroup)"  [defaultOptionVisible]="true" inputType="fill" [disabled] = "disabledCampCardFilterButton"
+                  [dsepFormGroup]="this.filterFormGroup" defaultOptionValue="All" name="pa" [values]="paUsers" [isMultiple]="true"></dsep-dropdown>
+                  <dsep-checkbox name="isAssignedToMe" [dsepFormGroup]="this.filterFormGroup" label="Only Assigned to me" ></dsep-checkbox>
+                  <div class="containers-status-delivery">
+                      <div class="status-ld-campaign">
+                        <div><span class="title-filter-campaign"><h6>Status</h6></span></div>
+                        <dsep-checkbox name="status0" [dsepFormGroup]="this.filterFormGroup"  label="ALL"></dsep-checkbox>
+                        <dsep-checkbox name="status1" [dsepFormGroup]="this.filterFormGroup"  label="To Do"></dsep-checkbox>
+                        <dsep-checkbox name="status2" [dsepFormGroup]="this.filterFormGroup"  label="In Progress"></dsep-checkbox>
+                        <dsep-checkbox name="status3" [dsepFormGroup]="this.filterFormGroup"  label="Approval Pending"></dsep-checkbox>
+                        <dsep-checkbox name="status4" [dsepFormGroup]="this.filterFormGroup"  label="Sending"></dsep-checkbox>
+                        <dsep-checkbox name="status5" [dsepFormGroup]="this.filterFormGroup"  label="Completed"></dsep-checkbox>
+                        <dsep-checkbox name="status6" [dsepFormGroup]="this.filterFormGroup"  label="Error"></dsep-checkbox>
+                        <dsep-checkbox name="status7" [dsepFormGroup]="this.filterFormGroup"  label="Sending Failed"></dsep-checkbox>
+                      </div>
+                      <div class="deliverysched-ld-campaign">
+                        <div><span class="title-filter-campaign"><h6>Delivery Schedule</h6></span></div>
+                        <dsep-checkbox name="schedule0" [dsepFormGroup]="this.filterFormGroup" label="ALL"></dsep-checkbox>
+                        <dsep-checkbox name="schedule1" [dsepFormGroup]="this.filterFormGroup" label="Monday"></dsep-checkbox>
+                        <dsep-checkbox name="schedule2" [dsepFormGroup]="this.filterFormGroup" label="Tuesday"></dsep-checkbox>
+                        <dsep-checkbox name="schedule3" [dsepFormGroup]="this.filterFormGroup" label="Wednesday"></dsep-checkbox>
+                        <dsep-checkbox name="schedule4" [dsepFormGroup]="this.filterFormGroup" label="Thursday"></dsep-checkbox>
+                        <dsep-checkbox name="schedule5" [dsepFormGroup]="this.filterFormGroup" label="Friday"></dsep-checkbox>
+                        <dsep-checkbox name="schedule6" [dsepFormGroup]="this.filterFormGroup" label="Realtime"></dsep-checkbox>
+                      </div>
+                  </div>
+                  <dsep-toolbar id="filter-toolbar">
+                    <dsep-button type="raised" text="Clear Filters" [disabled] = "disabledCampCardFilterButton" (btnClick)="onClearFilters(this.filterFormGroup)" cls="dsep-button button-brand-primary-color" location="right"></dsep-button>
+                    <dsep-button type="raised" text="Apply Filters" [disabled] = "disabledCampCardFilterButton" (btnClick)="onApplyFilter(this.filterFormGroup)" cls="dsep-button button-brand-primary-color" location="right"></dsep-button>
+                  </dsep-toolbar>
+                </div>
+                <ng-container *ngIf="initializeCustomFilter(colfields, operators, formFilterGroup)"></ng-container>
+            </ng-template>
+            <dsep-toolbar id="leads-main-tbar-paginator" location="bottom">
+              <dsep-paginator id="campainCardsPaginator" location="right" [pageSize]="10" [showFirstLast]="false" [length]="this.ldCampaignPXDataSource.dataTotalCount"></dsep-paginator>
+            </dsep-toolbar>
+          </dsep-grid>
+        </div>
+      </ng-template>
+      <ng-template #leadDeliveryMain>
+        <div class="toolbar-section-segmentgrid">
+             <span class="or-space-checkbox">OR</span>
+             <dsep-checkbox name="assignedToMeBar" [dsepFormGroup]="this.filterFormGroup" label="Show everything assigned to me today"></dsep-checkbox>
+        </div>
+        <dsep-grid #ldsegmentgrid id="leaddeliverysegment" [dataSource]="ldPXSegmentDataSource" [filter]="true" [showLoader]="showSegmentLoader">
+            <dsep-toolbar id="leads-main-tbar-paginator" location="bottom">
+                <dsep-paginator location="right" [pageSize]="10" [pageOption]="[10, 50, 100, 200]" [length]="this.ldPXSegmentDataSource.dataTotalCount"></dsep-paginator>
+            </dsep-toolbar>
+           <!-- <dsep-column id = 'switchcol' columnType ="switch" refName="isLock" headerText = "" (onSwitch)="onSwitchChange($event)" [canFilter]="true">
+                <dsep-tooltip id="switchtooltip" text="lockUserFullName"></dsep-tooltip>
+            </dsep-column>-->
+            <dsep-column id = 'leadprepdonecol' columnType = "chips" refName = "leadPreparationDone" [enumType] = "leadPrepDoneEnum" [canFilter]="false" headerText = "Lead Preparation Done?"></dsep-column>
+            <!--<dsep-column id = 'pxCampaign ID' columnType ="text" refName="pxCampaignID" headerText = "PX Campaign ID" [canFilter]="true"></dsep-column>-->
+            <dsep-column id = 'pxSegment ID' columnType ="link" refName="pxSegmentID" (onLinkClick)="onCampaignLinkClick($event)" [isRouterLink]="true" headerText = "Segment ID" [canFilter]="true"></dsep-column>
+            <dsep-column id = 'adminCID' columnType ="number" refName="adminCampaignID" headerText = "Admin CID" [canFilter]="true"></dsep-column>
+            <dsep-column id = 'segmentName' columnType = "text" refName = "segmentName" headerText = "SEGMENT NAME" [canFilter]="true"></dsep-column>
+            <dsep-column id = 'useravatarlfc' columnType = "avatar" refName = "lfcUser" [canFilter]="true"  headerText = "LFC" [isPopOverAvatar]="true">
+              <dsep-tooltip id="unassignedtooltip" text="tipText"></dsep-tooltip>
+            </dsep-column>
+            <dsep-column id = 'useravatarcxm' columnType = "avatar" refName = "cxmUser" [canFilter]="true"  headerText = "CXM" [isPopOverAvatar]="true">
+              <dsep-tooltip id="unassignedtooltip" text="tipText"></dsep-tooltip>
+            </dsep-column>
+            <dsep-column id = 'useravatarpa' columnType = "avatar" refName = "paUser" [canFilter]="true"  headerText = "PA" [isPopOverAvatar]="true">
+              <dsep-tooltip id="unassignedtooltip" text="tipText"></dsep-tooltip>
+            </dsep-column>
+            <dsep-column id = 'uqnotyetdismissed' columnType = "number" refName = "leadsUnqualifiedNotYetDismissed" headerText = "UQ NYD" [canFilter]="true"></dsep-column>
+            <dsep-column id = 'notYetDeliver' columnType = "number" refName = "leadsNotYetDelivered" headerText = "Not Yet Delivered" [canFilter]="true"></dsep-column>
+            <dsep-column id = 'leadtodeliver' columnType = "number" refName = "leadsToDeliver" headerText = "Delivery Queue" [canFilter]="true"></dsep-column>
+            <dsep-column id = 'leadsdelivered' columnType = "number" refName = "leadsDeliveredToday" headerText = "Delivered Today" [canFilter]="true"></dsep-column>
+            <dsep-column id = 'outstandingleads' columnType = "number" refName = "outstanding" headerText = "Outstanding" [canFilter]="true"></dsep-column>
+            <!--<dsep-column id = 'deliverySchedule' columnType = "text" refName = "deliverySchedule" headerText = "Delivery Schedule" [canFilter]="true"></dsep-column>-->
+             <!--<dsep-column id = 'deliverydate' columnType = "date" refName = "lastDeliveryDate" headerText = "Last Delivery Date and Time" [canFilter]="true" format= "MMM d, y h:mm:ss a"></dsep-column>-->
+            <dsep-column id = 'deliverydate' columnType = "text" refName = "lastDeliveryDateModified" headerText = "Last Delivery Date and Time" [canFilter]="true" format= "MMM d, y h:mm:ss a"></dsep-column>
+            <dsep-column id = 'deliveryMethod' columnType = "text" refName = "deliveryMethodText" headerText = "Delivery Method" [canFilter]="true"></dsep-column>
+            <dsep-column id = 'errorLeads' columnType = "number" refName = "errorLeadCount" headerText = "Error Leads" [canFilter]="true"></dsep-column>
+        </dsep-grid>
+
+      </ng-template>
+  </dsep-panel>
+</div>
